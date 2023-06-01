@@ -15,6 +15,7 @@ import torch.nn.functional as F
 
 from torch.autograd import Variable
 from torch.nn.parameter import Parameter
+import numpy as np
 
 def conv3x3(in_planes, out_planes, stride=1):
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride, padding=1, bias=False)
@@ -203,7 +204,9 @@ class ResNet(nn.Module):
         out = self.layer3(out)
         penultimate = self.layer4(out)
         out = F.avg_pool2d(penultimate, 4)
+        
         out = out.view(out.size(0), -1)
+        #print(np.shape(out))
         y = self.linear(out)
         return y, penultimate
     
@@ -224,8 +227,8 @@ def ResNet152():
 
 
 def test():
-    net = ResNet18()
-    y = net(Variable(torch.randn(1,3,32,32)))
-    print(y.size())
+    net = ResNet34(10)
+    y,penum = net.penultimate_forward(Variable(torch.randn(1,3,32,32)))
+    # print(np.shape(out1))
 
-# test()
+test()

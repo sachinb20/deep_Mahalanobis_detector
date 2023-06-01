@@ -10,7 +10,7 @@ import torchvision
 import torchvision.transforms as transforms
 import numpy as np
 import time
-from scipy import misc
+#from scipy import misc
 
 import matplotlib
 matplotlib.use('Agg')
